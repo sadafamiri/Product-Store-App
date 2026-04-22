@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/products";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cart/cartSlice";
 
 function Home() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
+
   });
+  const dispatch = useDispatch();
 
   //  Loading
   if (isLoading) {
@@ -17,27 +21,33 @@ function Home() {
     return <h2>Something went wrong!</h2>;
   }
 
-  return (
-    <div style={styles.container}>
-      <h1>🛍 Products</h1>
+ return (
+  <div style={styles.container}>
+    <h1>🛍 Products</h1>
 
-      <div style={styles.grid}>
-        {data.map((product) => (
-          <div key={product.id} style={styles.card}>
-            <img src={product.image} alt={product.title} style={styles.image} />
+    <div style={styles.grid}>
+      {data.map((product) => (
+        <div key={product.id} style={styles.card}>
+          <img
+            src={product.image}
+            alt={product.title}
+            style={styles.image}
+          />
 
-            <h3>{product.title}</h3>
-            <p>${product.price}</p>
+          <h3>{product.title}</h3>
+          <p>${product.price}</p>
 
-            <button style={styles.button}>
-              Add to Cart
-            </button>
-          </div>
-        ))}
-      </div>
+          <button
+            style={styles.button}
+            onClick={() => dispatch(addToCart(product))}
+          >
+            Add to Cart
+          </button>
+        </div>
+      ))}
     </div>
-  );
-}
+  </div>
+);}
 
 const styles = {
   container: {
