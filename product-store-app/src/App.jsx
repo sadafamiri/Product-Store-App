@@ -1,21 +1,13 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Cart from "./pages/Cart";
-import ProductDetails from "./pages/ProductDetails";
+import { useState } from 'react'
+import './App.css'
+import { useDispatch } from 'react-redux'
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Navbar />
+  const dispatch = useDispatch();
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  return (
+    
+  )
 }
 
-export default App;
+export default App
