@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "../api/products";
+import { getProducts } from "../api/productsAPI";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
 
