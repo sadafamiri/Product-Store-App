@@ -31,7 +31,7 @@ function Home() {
 
      <div style={{ position: "relative", width: "100%", marginBottom: "20px" }}>
   
-  {/* آیکن ذره‌بین */}
+  {/*search icon */}
   <FaSearch
     style={{
       position: "absolute",
@@ -42,7 +42,7 @@ function Home() {
     }}
   />
 
-  {/* input سرچ */}
+  {/*  search input  */}
   <input
     type="text"
     placeholder="Search products..."
@@ -50,7 +50,7 @@ function Home() {
     onChange={(e) => setSearch(e.target.value)}
     style={{
       width: "50%",
-      padding: "10px 10px 10px 38px", // مهم: جا برای آیکن
+      padding: "10px 10px 10px 38px", 
       border: "1px solid #ccc",
       borderRadius: "8px",
     }}

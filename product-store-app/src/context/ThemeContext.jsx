@@ -4,23 +4,37 @@ export const ThemeContext = createContext();
 
 const initialState = {
   darkMode: false,
+  layout: "grid",
+  language: "en",
 };
 
-function themeReducer(state, action) {
+function reducer(state, action) {
   switch (action.type) {
     case "TOGGLE_THEME":
       return { ...state, darkMode: !state.darkMode };
+
+    case "TOGGLE_LAYOUT":
+      return {
+        ...state,
+        layout: state.layout === "grid" ? "list" : "grid",
+      };
+
+    case "SET_LANGUAGE":
+      return { ...state, language: action.payload };
+
     default:
       return state;
   }
 }
 
 export function ThemeProvider({ children }) {
-  const [state, dispatch] = useReducer(themeReducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <ThemeContext.Provider value={{ state, dispatch }}>
-      {children}
+      <div className={state.darkMode ? "dark" : ""}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 }

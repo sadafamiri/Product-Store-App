@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
+
 function SettingsContent() {
   const { state, dispatch } = useContext(ThemeContext);
-
+     
   return (
     <div>
       {/* 🌙 Dark Mode */}
