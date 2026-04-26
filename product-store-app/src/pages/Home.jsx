@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { FaSearch } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/productsAPI";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
 
+
 function Home() {
+  const [search, setSearch] = useState("");
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
-
   });
   const dispatch = useDispatch();
 
@@ -22,33 +25,58 @@ function Home() {
     return <h2>Something went wrong!</h2>;
   }
 
- return (
-  <div style={styles.container}>
-    <h1>🛍 Products</h1>
+  return (
+    <div style={styles.container}>
+      <h1>🛍 Products</h1>
 
-    <div style={styles.grid}>
-      {data.map((product) => (
-        <div key={product.id} style={styles.card}>
-          <img
-            src={product.image}
-            alt={product.title}
-            style={styles.image}
-          />
+     <div style={{ position: "relative", width: "100%", marginBottom: "20px" }}>
+  
+  {/* آیکن ذره‌بین */}
+  <FaSearch
+    style={{
+      position: "absolute",
+      left: "12px",
+      top: "50%",
+      transform: "translateY(-50%)",
+      color: "#999",
+    }}
+  />
 
-          <h3>{product.title}</h3>
-          <p>${product.price}</p>
+  {/* input سرچ */}
+  <input
+    type="text"
+    placeholder="Search products..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    style={{
+      width: "50%",
+      padding: "10px 10px 10px 38px", // مهم: جا برای آیکن
+      border: "1px solid #ccc",
+      borderRadius: "8px",
+    }}
+  />
+</div>
 
-          <button
-            style={styles.button}
-            onClick={() => dispatch(addToCart(product))}
-          >
-            Add to Cart
-          </button>
-        </div>
-      ))}
+      <div style={styles.grid}>
+        {data.map((product) => (
+          <div key={product.id} style={styles.card}>
+            <img src={product.image} alt={product.title} style={styles.image} />
+
+            <h3>{product.title}</h3>
+            <p>${product.price}</p>
+
+            <button
+              style={styles.button}
+              onClick={() => dispatch(addToCart(product))}
+            >
+              Add to Cart
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-);}
+  );
+}
 
 const styles = {
   container: {
