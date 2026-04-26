@@ -5,21 +5,22 @@ import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/productsAPI";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
-<<<<<<< HEAD
+
+
 
 
 function Home() {
   const [search, setSearch] = useState("");
-=======
+
 
 function Home() {
   const dispatch = useDispatch();
->>>>>>> cc4dd7aa2951dd31891557d2bc7368bcfa374813
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
   });
-  const dispatch = useDispatch();
+  
 
   //  Loading
   if (isLoading) {
@@ -72,15 +73,14 @@ function Home() {
             <p>${product.price}</p>
 
             <button
-<<<<<<< HEAD
+
               style={styles.button}
               onClick={() => dispatch(addToCart(product))}
-=======
+
               onClick={() => {
                 console.log(product);
                 dispatch(addToCart(product));
               }}
->>>>>>> cc4dd7aa2951dd31891557d2bc7368bcfa374813
             >
               Add to Cart
             </button>
@@ -117,5 +117,6 @@ const styles = {
     cursor: "pointer",
   },
 };
+}
 
 export default Home;

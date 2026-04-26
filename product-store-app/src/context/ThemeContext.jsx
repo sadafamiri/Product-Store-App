@@ -1,10 +1,8 @@
 import { createContext, useReducer } from "react";
 
-<<<<<<< HEAD
+
 export const ThemeContext = createContext();
-=======
-export const ThemeContext = createContext(); // 👈 این مهم است
->>>>>>> cc4dd7aa2951dd31891557d2bc7368bcfa374813
+
 
 const initialState = {
   darkMode: false,
