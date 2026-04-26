@@ -1,38 +1,37 @@
 import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { SettingsContext } from "../context/ThemeContext"; 
+// یا اگر فایل اسمش همونه
 
 function SettingsContent() {
-  const { state, dispatch } = useContext(ThemeContext);
+  const { state, dispatch } = useContext(SettingsContext);
 
   return (
     <div>
-      {/* 🌙 Dark Mode */}
-      <div>
-        <h4>Theme</h4>
-        <button onClick={() => dispatch({ type: "TOGGLE_THEME" })}>
-          {state.theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
-        </button>
-      </div>
+      <h4>Theme</h4>
+
+      <button onClick={() => dispatch({ type: "TOGGLE_THEME" })}>
+        {state.darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+      </button>
 
       <hr />
 
-      {/* 🌐 Language */}
-      <div>
-        <h4>Language</h4>
-        <select>
-          <option>English</option>
-          <option>Persian</option>
-        </select>
-      </div>
+      <h4>Language</h4>
+      <select
+        value={state.language}
+        onChange={(e) =>
+          dispatch({ type: "SET_LANGUAGE", payload: e.target.value })
+        }
+      >
+        <option value="en">English</option>
+        <option value="fa">Persian</option>
+      </select>
 
       <hr />
 
-      {/* 📦 Layout */}
-      <div>
-        <h4>Layout</h4>
-        <button>Grid</button>
-        <button>List</button>
-      </div>
+      <h4>Layout</h4>
+      <button onClick={() => dispatch({ type: "TOGGLE_LAYOUT" })}>
+        {state.layout}
+      </button>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-function Navbar() {
+import { FaShoppingCart, FaCog } from "react-icons/fa";
+function Navbar({ openSettings }) {
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   return (
     <nav style={styles.nav}>
@@ -12,11 +13,27 @@ function Navbar() {
           {" "}
           Home{" "}
         </Link>{" "}
-        <Link to="/cart" style={styles.link}>
-          {" "}
-          Cart ({totalQuantity}){" "}
-        </Link>{" "}
-      </div>{" "}
+         {/* Cart Icon */}
+        <Link to="/cart" className="relative">
+          <FaShoppingCart size={22} />
+
+          {/* Badge */}
+          {totalQuantity > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-xs w-5 h-5 flex items-center justify-center rounded-full">
+              {totalQuantity}
+            </span>
+          )}
+        </Link>
+
+        {/* Settings Icon */}
+        <button
+          onClick={openSettings}
+          className="hover:text-gray-300"
+        >
+          <FaCog size={22} />
+        </button>
+
+      </div>
     </nav>
   );
 }

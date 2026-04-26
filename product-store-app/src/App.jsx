@@ -40,5 +40,27 @@ function App() {
     </>
   );
 }
+const styles = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    zIndex: 999,
+  },
+  sidebar: {
+    position: "fixed",
+    top: 0,
+    right: 0,
+    width: "300px",
+    height: "100vh",
+    backgroundColor: "#fff",
+    padding: "20px",
+    zIndex: 1000,
+    boxShadow: "-2px 0 10px rgba(0,0,0,0.2)",
+  },
+};
 
 export default App;

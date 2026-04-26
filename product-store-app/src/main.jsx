@@ -7,15 +7,18 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import App from "./App.jsx";
 import { store } from "./app/store.js";
 
+import { ThemeProvider } from "./context/ThemeContext";
+
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
+  <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <ThemeProvider>
           <App />
-        </BrowserRouter>
-      </QueryClientProvider>
-    </Provider>
-  
+        </ThemeProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
+  </Provider>,
 );
