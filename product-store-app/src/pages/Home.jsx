@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/productsAPI";
 import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cart/cartSlice";
 
 function Home() {
   const dispatch = useDispatch();

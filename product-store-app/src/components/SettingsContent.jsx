@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { SettingsContext } from "../context/ThemeContext"; 
 // یا اگر فایل اسمش همونه
 
 function SettingsContent() {
