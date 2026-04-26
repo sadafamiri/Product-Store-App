@@ -1,11 +1,59 @@
+<<<<<<< HEAD
+import { useState,useContext } from "react";
+import { Routes, Route } from "react-router-dom";
+=======
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
+>>>>>>> cc4dd7aa2951dd31891557d2bc7368bcfa374813
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import ProductDetails from "./pages/ProductDetails";
 import SettingsContent from "./components/SettingsContent";
+<<<<<<< HEAD
+import { ThemeContext } from "./context/ThemeContext";
+
+function App() {
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const { state } = useContext(ThemeContext);
+  return (
+    <>
+    
+      <Navbar openSettings={() => setIsSettingsOpen(true)} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+      </Routes>
+      {/* Settings Sidebar */}
+      {isSettingsOpen && (
+        <>
+          {/* Overlay */}
+          <div
+            onClick={() => setIsSettingsOpen(false)}
+            style={styles.overlay}
+          />
+
+          {/* Sidebar */}
+          <div style={styles.sidebar}>
+            <h2>⚙ Settings</h2>
+
+            <button onClick={() => setIsSettingsOpen(false)}>Close ❌</button>
+
+            <hr />
+
+            <SettingsContent />
+          </div>
+        </>
+      )}
+    </>
+  );
+}
+
+const styles = {
+  
+=======
 
 function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -41,6 +89,7 @@ function App() {
   );
 }
 const styles = {
+>>>>>>> cc4dd7aa2951dd31891557d2bc7368bcfa374813
   overlay: {
     position: "fixed",
     top: 0,
@@ -63,4 +112,8 @@ const styles = {
   },
 };
 
+<<<<<<< HEAD
 export default App;
+=======
+export default App;
+>>>>>>> cc4dd7aa2951dd31891557d2bc7368bcfa374813

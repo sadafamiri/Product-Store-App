@@ -1,14 +1,25 @@
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { FaSearch } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../api/productsAPI";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
+<<<<<<< HEAD
+
+
+function Home() {
+  const [search, setSearch] = useState("");
+=======
 
 function Home() {
   const dispatch = useDispatch();
+>>>>>>> cc4dd7aa2951dd31891557d2bc7368bcfa374813
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
   });
+  const dispatch = useDispatch();
 
   //  Loading
   if (isLoading) {
@@ -24,6 +35,34 @@ function Home() {
     <div style={styles.container}>
       <h1>🛍 Products</h1>
 
+     <div style={{ position: "relative", width: "100%", marginBottom: "20px" }}>
+  
+  {/*search icon */}
+  <FaSearch
+    style={{
+      position: "absolute",
+      left: "12px",
+      top: "50%",
+      transform: "translateY(-50%)",
+      color: "#999",
+    }}
+  />
+
+  {/*  search input  */}
+  <input
+    type="text"
+    placeholder="Search products..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    style={{
+      width: "50%",
+      padding: "10px 10px 10px 38px", 
+      border: "1px solid #ccc",
+      borderRadius: "8px",
+    }}
+  />
+</div>
+
       <div style={styles.grid}>
         {data.map((product) => (
           <div key={product.id} style={styles.card}>
@@ -33,10 +72,15 @@ function Home() {
             <p>${product.price}</p>
 
             <button
+<<<<<<< HEAD
+              style={styles.button}
+              onClick={() => dispatch(addToCart(product))}
+=======
               onClick={() => {
                 console.log(product);
                 dispatch(addToCart(product));
               }}
+>>>>>>> cc4dd7aa2951dd31891557d2bc7368bcfa374813
             >
               Add to Cart
             </button>

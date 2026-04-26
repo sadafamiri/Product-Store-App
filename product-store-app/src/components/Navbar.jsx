@@ -1,5 +1,39 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+<<<<<<< HEAD
+import { FaShoppingCart } from "react-icons/fa";
+import { FaCog } from "react-icons/fa";
+
+function Navbar({ openSettings }) {
+  const totalQuantity = useSelector((state) => state.cart.totalQuantity);
+
+  return (
+    <nav style={styles.nav}>
+      <h2 style={styles.logo}>🛍 MyStore</h2>
+      {/* دکمه Settings */}
+        
+
+      <div style={styles.links}>
+        <Link to="/" style={styles.link}>
+          Home
+        </Link>
+
+        <Link to="/cart" style={styles.cart}>
+          <FaShoppingCart size={20} />
+          <span style={styles.badge}>{totalQuantity}</span>
+        </Link>
+        <button onClick={openSettings} style={styles.iconBtn}>
+          <FaCog size={20} />
+        </button>
+    
+      </div>
+    </nav>
+    
+        
+  );
+}
+
+=======
 import { FaShoppingCart, FaCog } from "react-icons/fa";
 function Navbar({ openSettings }) {
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
@@ -37,6 +71,7 @@ function Navbar({ openSettings }) {
     </nav>
   );
 }
+>>>>>>> cc4dd7aa2951dd31891557d2bc7368bcfa374813
 const styles = {
   nav: {
     display: "flex",
@@ -46,8 +81,25 @@ const styles = {
     backgroundColor: "#222",
     color: "#fff",
   },
+<<<<<<< HEAD
+  logo: {
+    margin: 0,
+  },
+  links: {
+    display: "flex",
+    gap: "20px",
+  },
+  link: {
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "16px",
+  },
+};
+
+=======
   logo: { margin: 0 },
   links: { display: "flex", gap: "20px" },
   link: { color: "#fff", textDecoration: "none", fontSize: "16px" },
 };
+>>>>>>> cc4dd7aa2951dd31891557d2bc7368bcfa374813
 export default Navbar;
