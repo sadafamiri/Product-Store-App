@@ -32,8 +32,10 @@ function Home() {
             <p>${product.price}</p>
 
             <button
-              style={styles.button}
-              onClick={() => dispatch(addToCart(product))}
+              onClick={() => {
+                console.log(product);
+                dispatch(addToCart(product));
+              }}
             >
               Add to Cart
             </button>

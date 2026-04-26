@@ -1,5 +1,6 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
