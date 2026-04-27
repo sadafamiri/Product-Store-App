@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
@@ -6,66 +5,51 @@ import { getProducts } from "../api/productsAPI";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
 
-
-
-
 function Home() {
   const [search, setSearch] = useState("");
-
-
-function Home() {
   const dispatch = useDispatch();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
   });
-  
 
-  //  Loading
-  if (isLoading) {
-    return <h2>Loading products...</h2>;
-  }
-
-  // Error
-  if (error) {
-    return <h2>Something went wrong!</h2>;
-  }
+  if (isLoading) return <h2>Loading products...</h2>;
+  if (error) return <h2>Something went wrong!</h2>;
 
   return (
     <div style={styles.container}>
       <h1>🛍 Products</h1>
 
-     <div style={{ position: "relative", width: "100%", marginBottom: "20px" }}>
-  
-  {/*search icon */}
-  <FaSearch
-    style={{
-      position: "absolute",
-      left: "12px",
-      top: "50%",
-      transform: "translateY(-50%)",
-      color: "#999",
-    }}
-  />
+      {/* Search */}
+      <div style={{ position: "relative", width: "100%", marginBottom: "20px" }}>
+        <FaSearch
+          style={{
+            position: "absolute",
+            left: "12px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            color: "#999",
+          }}
+        />
 
-  {/*  search input  */}
-  <input
-    type="text"
-    placeholder="Search products..."
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-    style={{
-      width: "50%",
-      padding: "10px 10px 10px 38px", 
-      border: "1px solid #ccc",
-      borderRadius: "8px",
-    }}
-  />
-</div>
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            width: "50%",
+            padding: "10px 10px 10px 38px",
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+          }}
+        />
+      </div>
 
+      {/* Products */}
       <div style={styles.grid}>
-        {data.map((product) => (
+        {data?.map((product) => (
           <div key={product.id} style={styles.card}>
             <img src={product.image} alt={product.title} style={styles.image} />
 
@@ -73,10 +57,7 @@ function Home() {
             <p>${product.price}</p>
 
             <button
-
               style={styles.button}
-              onClick={() => dispatch(addToCart(product))}
-
               onClick={() => {
                 console.log(product);
                 dispatch(addToCart(product));
@@ -92,9 +73,7 @@ function Home() {
 }
 
 const styles = {
-  container: {
-    padding: "20px",
-  },
+  container: { padding: "20px" },
   grid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
@@ -117,6 +96,5 @@ const styles = {
     cursor: "pointer",
   },
 };
-}
 
 export default Home;

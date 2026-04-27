@@ -33,4 +33,47 @@ function Navbar({ openSettings }) {
   );
 }
 
+const styles = {
+  nav: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "15px 20px",
+    background: "#222",
+    color: "#fff",
+  },
+  logo: {
+    margin: 0,
+  },
+  links: {
+    display: "flex",
+    alignItems: "center",
+    gap: "15px",
+  },
+  link: {
+    color: "#fff",
+    textDecoration: "none",
+  },
+  cart: {
+    position: "relative",
+    color: "#fff",
+  },
+  badge: {
+    position: "absolute",
+    top: "-8px",
+    right: "-10px",
+    background: "red",
+    color: "#fff",
+    borderRadius: "50%",
+    padding: "2px 6px",
+    fontSize: "12px",
+  },
+  iconBtn: {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    color: "#fff",
+  },
+};
+
 export default Navbar;
