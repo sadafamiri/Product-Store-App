@@ -1,79 +1,48 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-import { FaShoppingCart } from "react-icons/fa";
-import { FaCog } from "react-icons/fa";
+import { useContext } from "react";
+import { AppBar, Toolbar, Typography, IconButton, Badge, Box } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { LanguageContext } from "../context/LanguageContext";
 
 function Navbar({ openSettings }) {
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
+  const { t } = useContext(LanguageContext);
 
   return (
-    <nav style={styles.nav}>
-      <h2 style={styles.logo}>🛍 MyStore</h2>
-      {/* دکمه Settings */}
-        
+    <AppBar position="sticky" sx={{ bgcolor: "#222" }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
 
-      <div style={styles.links}>
-        <Link to="/" style={styles.link}>
-          Home
-        </Link>
+        {/* Logo */}
+        <Typography variant="h6">
+          🛍 MyStore
+        </Typography>
 
-        <Link to="/cart" style={styles.cart}>
-          <FaShoppingCart size={20} />
-          <span style={styles.badge}>{totalQuantity}</span>
-        </Link>
-        <button onClick={openSettings} style={styles.iconBtn}>
-          <FaCog size={20} />
-        </button>
-    
-      </div>
-    </nav>
-    
-        
+        {/* Links */}
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+
+          <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+            {t("home") || "Home"}
+          </Link>
+
+          {/* Cart */}
+          <IconButton component={Link} to="/cart" color="inherit">
+            <Badge badgeContent={totalQuantity} color="error">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
+
+          {/* Settings */}
+          <IconButton color="inherit" onClick={openSettings}>
+            <SettingsIcon />
+          </IconButton>
+
+        </Box>
+
+      </Toolbar>
+    </AppBar>
   );
 }
-
-const styles = {
-  nav: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "15px 20px",
-    background: "#222",
-    color: "#fff",
-  },
-  logo: {
-    margin: 0,
-  },
-  links: {
-    display: "flex",
-    alignItems: "center",
-    gap: "15px",
-  },
-  link: {
-    color: "#fff",
-    textDecoration: "none",
-  },
-  cart: {
-    position: "relative",
-    color: "#fff",
-  },
-  badge: {
-    position: "absolute",
-    top: "-8px",
-    right: "-10px",
-    background: "red",
-    color: "#fff",
-    borderRadius: "50%",
-    padding: "2px 6px",
-    fontSize: "12px",
-  },
-  iconBtn: {
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    color: "#fff",
-  },
-};
 
 export default Navbar;

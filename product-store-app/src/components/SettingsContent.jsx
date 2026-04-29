@@ -1,40 +1,74 @@
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import { LanguageContext } from "../context/LanguageContext";
+import {
+  Box,
+  Typography,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Divider,
+  Stack,
+} from "@mui/material";
 
 
 function SettingsContent() {
   const { state, dispatch } = useContext(ThemeContext);
-     
-  return (
-    <div>
-      {/* 🌙 Dark Mode */}
-      <div>
-        <h4>Theme</h4>
-        <button onClick={() => dispatch({ type: "TOGGLE_THEME" })}>
-          {state.theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
-        </button>
-      </div>
+  const { language, changeLanguage, t } = useContext(LanguageContext);
 
-      <hr />
+  return (
+    <Box sx={{ width: "100%", p: 2 }}>
+      
+      {/* 🌙 Theme */}
+      <Typography variant="h6" mb={2}>
+        {t("theme")}
+      </Typography>
+
+      <Button
+        variant="contained"
+        onClick={() => dispatch({ type: "TOGGLE_THEME" })}
+        sx={{ mb: 2 }}
+      >
+        {state.theme === "light"
+          ? `🌙 ${t("dark")}`
+          : `☀️ ${t("light")}`}
+      </Button>
+
+      <Divider sx={{ my: 2 }} />
 
       {/* 🌐 Language */}
-      <div>
-        <h4>Language</h4>
-        <select>
-          <option>English</option>
-          <option>Persian</option>
-        </select>
-      </div>
+      <Typography variant="h6" mb={2}>
+        {t("language")}
+      </Typography>
 
-      <hr />
+      <FormControl fullWidth>
+        <InputLabel>{t("language")}</InputLabel>
+
+        <Select
+          value={language}
+          label={t("language")}
+          onChange={(e) => changeLanguage(e.target.value)}
+        >
+          <MenuItem value="en">{t("english")}</MenuItem>
+          <MenuItem value="fa">{t("persian")}</MenuItem>
+          <MenuItem value="ps">{t("pashto")}</MenuItem>
+        </Select>
+      </FormControl>
+
+      <Divider sx={{ my: 2 }} />
 
       {/* 📦 Layout */}
-      <div>
-        <h4>Layout</h4>
-        <button>Grid</button>
-        <button>List</button>
-      </div>
-      </div>
+      <Typography variant="h6" mb={2}>
+        Layout
+      </Typography>
+
+      <Stack direction="row" spacing={2}>
+        <Button variant="outlined">Grid</Button>
+        <Button variant="outlined">List</Button>
+      </Stack>
+    </Box>
   );
 }
 

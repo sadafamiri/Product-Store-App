@@ -1,4 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useContext } from "react";
+
+import {
+  Box,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Stack,
+} from "@mui/material";
+
+import { LanguageContext } from "../context/LanguageContext";
+
 import {
   removeFromCart,
   increaseQty,
@@ -9,41 +23,113 @@ import {
 function Cart() {
   const dispatch = useDispatch();
 
+  const { t } = useContext(LanguageContext);
+
   const { items, totalPrice, totalQuantity } = useSelector(
     (state) => state.cart
   );
 
   return (
-    <div>
-      <h1>Cart</h1>
+    <Box p={4}>
+      {/* Title */}
+      <Typography variant="h4" mb={2}>
+        {t("cart")}
+      </Typography>
 
-      <h3>Total Items: {totalQuantity}</h3>
-      <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
+      {/* Info */}
+      <Typography variant="h6">
+        Total Items: {totalQuantity}
+      </Typography>
 
-      <button onClick={() => dispatch(clearCart())}>
-        Clear Cart
-      </button>
+      <Typography variant="h6" mb={2}>
+        Total Price: ${totalPrice.toFixed(2)}
+      </Typography>
 
-      {items.map((item) => (
-        <div key={item.id}>
-          <h4>{item.title}</h4>
-          <p>${item.price}</p>
-          <p>Qty: {item.quantity}</p>
+      {/* Clear Cart */}
+      <Button
+        variant="contained"
+        color="error"
+        onClick={() => dispatch(clearCart())}
+        sx={{ mb: 4 }}
+      >
+        {t("clearCart")}
+      </Button>
 
-          <button onClick={() => dispatch(increaseQty(item.id))}>
-            +
-          </button>
+      {/* Empty Cart */}
+      {items.length === 0 ? (
+        <Typography variant="h6">
+          Cart is empty
+        </Typography>
+      ) : (
+        <Stack spacing={3}>
+          {items.map((item) => (
+            <Card
+              key={item.id}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                p: 2,
+                gap: 2,
+              }}
+            >
+              {/* Image */}
+              <CardMedia
+                component="img"
+                image={item.image}
+                alt={item.title}
+                sx={{
+                  width: 120,
+                  height: 120,
+                  objectFit: "contain",
+                }}
+              />
 
-          <button onClick={() => dispatch(decreaseQty(item.id))}>
-            -
-          </button>
+              {/* Content */}
+              <CardContent sx={{ flex: 1 }}>
+                <Typography variant="h6">
+                  {item.title}
+                </Typography>
 
-          <button onClick={() => dispatch(removeFromCart(item.id))}>
-            Remove
-          </button>
-        </div>
-      ))}
-    </div>
+                <Typography variant="body1">
+                  ${item.price}
+                </Typography>
+
+                <Typography variant="body2" mb={2}>
+                  Qty: {item.quantity}
+                </Typography>
+
+                {/* Buttons */}
+                <Stack direction="row" spacing={2}>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    onClick={() => dispatch(increaseQty(item.id))}
+                  >
+                    +
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    onClick={() => dispatch(decreaseQty(item.id))}
+                  >
+                    -
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                  >
+                    Remove
+                  </Button>
+                </Stack>
+              </CardContent>
+            </Card>
+          ))}
+        </Stack>
+      )}
+    </Box>
   );
 }
 
