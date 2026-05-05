@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useContext } from "react";
-import { AppBar, Toolbar, Typography, IconButton, Badge, Box } from "@mui/material";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import SettingsIcon from "@mui/icons-material/Settings";
+import { FaShoppingCart, FaCog } from "react-icons/fa";
 import { LanguageContext } from "../context/LanguageContext";
 
 function Navbar({ openSettings }) {
@@ -11,38 +9,83 @@ function Navbar({ openSettings }) {
   const { t } = useContext(LanguageContext);
 
   return (
-    <AppBar position="sticky" sx={{ bgcolor: "#222" }}>
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+    <nav style={styles.nav}>
+      {/* Logo */}
+      <h2 style={styles.logo}>🛍 MyStore</h2>
 
-        {/* Logo */}
-        <Typography variant="h6">
-          🛍 MyStore
-        </Typography>
+      {/* Links */}
+      <div style={styles.links}>
+        <Link to="/" style={styles.link}>
+          {t("home") || "Home"}
+        </Link>
 
-        {/* Links */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        {/* Cart */}
+        <Link to="/cart" style={styles.cart}>
+          <FaShoppingCart size={20} />
+          <span style={styles.badge}>{totalQuantity}</span>
+        </Link>
 
-          <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-            {t("home") || "Home"}
-          </Link>
-
-          {/* Cart */}
-          <IconButton component={Link} to="/cart" color="inherit">
-            <Badge badgeContent={totalQuantity} color="error">
-              <ShoppingCartIcon />
-            </Badge>
-          </IconButton>
-
-          {/* Settings */}
-          <IconButton color="inherit" onClick={openSettings}>
-            <SettingsIcon />
-          </IconButton>
-
-        </Box>
-
-      </Toolbar>
-    </AppBar>
+        {/* Settings */}
+        <button onClick={openSettings} style={styles.iconBtn}>
+          <FaCog size={20} />
+        </button>
+      </div>
+    </nav>
   );
 }
+
+const styles = {
+  nav: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "15px 20px",
+    background: "#222",
+    color: "#fff",
+  },
+
+  logo: {
+    margin: 0,
+    fontSize: "18px",
+  },
+
+  links: {
+    display: "flex",
+    alignItems: "center",
+    gap: "15px",
+  },
+
+  link: {
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "14px",
+  },
+
+  cart: {
+    position: "relative",
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    gap: "5px",
+  },
+
+  badge: {
+    position: "absolute",
+    top: "-8px",
+    right: "-10px",
+    background: "red",
+    color: "#fff",
+    borderRadius: "50%",
+    padding: "2px 6px",
+    fontSize: "12px",
+  },
+
+  iconBtn: {
+    background: "none",
+    border: "none",
+    color: "#fff",
+    cursor: "pointer",
+  },
+};
 
 export default Navbar;
