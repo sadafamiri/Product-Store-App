@@ -78,8 +78,14 @@ function Home() {
               padding: "6px 10px",
               marginRight: "8px",
               border: "1px solid #ccc",
-              background: category === cat ? "#333" : "#fff",
-              color: category === cat ? "#fff" : "#000",
+              background:
+                category === cat
+                  ? "var(--chip-active-bg)"
+                  : "var(--surface-color)",
+              color:
+                category === cat
+                  ? "var(--chip-active-text)"
+                  : "var(--text-color)",
               cursor: "pointer",
             }}
           >
@@ -144,14 +150,16 @@ const styles = {
     position: "absolute",
     left: "10px",
     top: "10px",
-    color: "#888",
+    color: "var(--muted-color)",
   },
 
   input: {
     width: "95%",
     padding: "10px 10px 10px 15px",
     borderRadius: "8px",
-    border: "1px solid #ddd",
+    border: "1px solid var(--border-color)",
+    background: "var(--surface-color)",
+    color: "var(--text-color)",
   },
 
   select: {
@@ -159,7 +167,9 @@ const styles = {
     minWidth: "150px",
     padding: "10px",
     borderRadius: "8px",
-    border: "1px solid #ddd",
+    border: "1px solid var(--border-color)",
+    background: "var(--surface-color)",
+    color: "var(--text-color)",
   },
 
   categoryBox: {
@@ -177,11 +187,11 @@ const styles = {
   },
 
   card: {
-    border: "1px solid #eee",
+    border: "1px solid var(--border-color)",
     padding: "12px",
     borderRadius: "12px",
     textAlign: "center",
-    background: "#f9f6f7",
+    background: "var(--card-color)",
   },
 
   image: {

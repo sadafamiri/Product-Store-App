@@ -38,8 +38,8 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "15px 20px",
-    background: "#222",
-    color: "#fff",
+    background: "var(--nav-bg)",
+    color: "var(--nav-text)",
   },
 
   logo: {
@@ -54,14 +54,14 @@ const styles = {
   },
 
   link: {
-    color: "#fff",
+    color: "var(--nav-text)",
     textDecoration: "none",
     fontSize: "14px",
   },
 
   cart: {
     position: "relative",
-    color: "#fff",
+    color: "var(--nav-text)",
     display: "flex",
     alignItems: "center",
     gap: "5px",
@@ -81,7 +81,7 @@ const styles = {
   iconBtn: {
     background: "none",
     border: "none",
-    color: "#fff",
+    color: "var(--nav-text)",
     cursor: "pointer",
   },
 };

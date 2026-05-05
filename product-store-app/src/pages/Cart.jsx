@@ -125,7 +125,8 @@ const styles = {
   card: {
     display: "flex",
     gap: "15px",
-    border: "1px solid #ddd",
+    border: "1px solid var(--border-color)",
+    background: "var(--surface-color)",
     borderRadius: "12px",
     padding: "12px",
     alignItems: "center",

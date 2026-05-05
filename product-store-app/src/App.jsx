@@ -1,15 +1,13 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import ProductDetails from "./pages/ProductDetails";
 import SettingsContent from "./components/SettingsContent";
-import { ThemeContext } from "./context/ThemeContext";
 
 function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const { state } = useContext(ThemeContext);
   return (
     <>
       <Navbar openSettings={() => setIsSettingsOpen(true)} />
@@ -59,7 +57,8 @@ const styles = {
     right: 0,
     width: "300px",
     height: "100vh",
-    backgroundColor: "#fff",
+    backgroundColor: "var(--surface-color)",
+    color: "var(--text-color)",
     padding: "20px",
     zIndex: 1000,
     boxShadow: "-2px 0 10px rgba(0,0,0,0.2)",

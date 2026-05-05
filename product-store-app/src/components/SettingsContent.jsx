@@ -8,21 +8,17 @@ function SettingsContent() {
 
   return (
     <div style={styles.container}>
-      {/*  Theme */}
       <h3 style={styles.title}>{t("theme")}</h3>
 
       <button
         style={styles.themeBtn}
         onClick={() => dispatch({ type: "TOGGLE_THEME" })}
       >
-        {state.theme === "light"
-          ? `🌙 ${t("darkMode")}`
-          : `☀️ ${t("lightMode")}`}
+        {state.darkMode ? t("lightMode") : t("darkMode")}
       </button>
 
       <hr style={styles.line} />
 
-      {/*  Language */}
       <h3 style={styles.title}>{t("language")}</h3>
 
       <select
@@ -37,7 +33,6 @@ function SettingsContent() {
 
       <hr style={styles.line} />
 
-      {/*  Layout */}
       <h3 style={styles.title}>{t("layout")}</h3>
 
       <div style={styles.row}>
@@ -74,7 +69,9 @@ const styles = {
     width: "100%",
     padding: "10px",
     borderRadius: "8px",
-    border: "1px solid #ccc",
+    border: "1px solid var(--border-color)",
+    background: "var(--surface-color)",
+    color: "var(--text-color)",
   },
 
   row: {
@@ -85,8 +82,9 @@ const styles = {
   outlinedBtn: {
     flex: 1,
     padding: "10px",
-    border: "1px solid #999",
+    border: "1px solid var(--border-color)",
     background: "transparent",
+    color: "var(--text-color)",
     borderRadius: "8px",
     cursor: "pointer",
   },
@@ -94,7 +92,8 @@ const styles = {
   line: {
     margin: "15px 0",
     border: "none",
-    borderTop: "1px solid #ddd",
+    borderTop: "1px solid var(--border-color)",
   },
 };
+
 export default SettingsContent;

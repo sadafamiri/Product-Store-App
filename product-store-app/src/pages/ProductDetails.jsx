@@ -69,7 +69,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     padding: "20px",
-    background: "#f5f7fb",
+    background: "var(--page-soft-bg)",
   },
 
   card: {
@@ -77,7 +77,7 @@ const styles = {
     gap: "20px",
     maxWidth: "900px",
     width: "100%",
-    background: "#fff",
+    background: "var(--surface-color)",
     borderRadius: "15px",
     padding: "20px",
     boxShadow: "0 5px 20px rgba(0,0,0,0.1)",
@@ -88,7 +88,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "#f9f9f9",
+    background: "var(--card-color)",
     borderRadius: "12px",
     padding: "10px",
   },
@@ -110,13 +110,13 @@ const styles = {
 
   category: {
     fontSize: "13px",
-    color: "#666",
+    color: "var(--muted-color)",
     marginBottom: "10px",
   },
 
   desc: {
     fontSize: "14px",
-    color: "#444",
+    color: "var(--text-color)",
     lineHeight: "1.5",
     marginBottom: "15px",
   },
@@ -158,9 +158,10 @@ const styles = {
 
   backBtn: {
     padding: "10px 15px",
-    border: "1px solid #ccc",
+    border: "1px solid var(--border-color)",
     borderRadius: "8px",
-    background: "#fff",
+    background: "var(--surface-color)",
+    color: "var(--text-color)",
     cursor: "pointer",
   },
 
