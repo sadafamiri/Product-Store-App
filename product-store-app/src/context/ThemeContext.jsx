@@ -1,8 +1,6 @@
-import { createContext, useReducer } from "react";
-
+import { createContext, useReducer, useEffect } from "react";
 
 export const ThemeContext = createContext();
-
 
 const initialState = {
   darkMode: false,
@@ -32,11 +30,17 @@ function reducer(state, action) {
 export function ThemeProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // 👇 مهم‌ترین بخش
+  useEffect(() => {
+    document.body.setAttribute(
+      "data-theme",
+      state.darkMode ? "dark" : "light"
+    );
+  }, [state.darkMode]);
+
   return (
     <ThemeContext.Provider value={{ state, dispatch }}>
-      <div className={state.darkMode ? "dark" : ""}>
-        {children}
-      </div>
+      {children}
     </ThemeContext.Provider>
   );
 }

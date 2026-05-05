@@ -1,14 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
 import { getCategories } from "../api/productsAPI";
+import { LanguageContext } from "../context/LanguageContext";
 
 function CategoryFilter({ selectedCategory, setSelectedCategory }) {
+  const { t } = useContext(LanguageContext);
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
   });
 
-  if (isLoading) return <p>Loading categories...</p>;
-  if (error) return <p>Error loading categories</p>;
+  if (isLoading) return <p>{t("loading")}</p>;
+  if (error) return <p>{t("error")}</p>;
 
   return (
     <div style={styles.wrapper}>
@@ -21,11 +25,11 @@ function CategoryFilter({ selectedCategory, setSelectedCategory }) {
           color: selectedCategory === "" ? "#fff" : "#000",
         }}
       >
-        All
+        {t("all")}
       </button>
 
       {/* Categories */}
-      {data.map((cat) => (
+      {data?.map((cat) => (
         <button
           key={cat}
           onClick={() => setSelectedCategory(cat)}
@@ -42,6 +46,7 @@ function CategoryFilter({ selectedCategory, setSelectedCategory }) {
   );
 }
 
+/* styles (بدون تغییر) */
 const styles = {
   wrapper: {
     display: "flex",

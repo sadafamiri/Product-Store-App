@@ -16,16 +16,14 @@ function Navbar({ openSettings }) {
       {/* Links */}
       <div style={styles.links}>
         <Link to="/" style={styles.link}>
-          {t("home") || "Home"}
+          {t("home")}
         </Link>
 
-        {/* Cart */}
         <Link to="/cart" style={styles.cart}>
           <FaShoppingCart size={20} />
           <span style={styles.badge}>{totalQuantity}</span>
         </Link>
 
-        {/* Settings */}
         <button onClick={openSettings} style={styles.iconBtn}>
           <FaCog size={20} />
         </button>
@@ -33,6 +31,8 @@ function Navbar({ openSettings }) {
     </nav>
   );
 }
+
+/* ================= STYLES (UNCHANGED) ================= */
 
 const styles = {
   nav: {

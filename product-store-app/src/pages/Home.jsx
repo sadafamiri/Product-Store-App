@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { LanguageContext } from "../context/LanguageContext";
 
 import { getProducts } from "../api/productsAPI";
 import { addToCart } from "../features/cart/cartSlice";
@@ -13,6 +15,7 @@ function Home() {
   const [sort, setSort] = useState("default");
 
   const dispatch = useDispatch();
+  const { t } = useContext(LanguageContext);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
@@ -39,7 +42,7 @@ function Home() {
 
   return (
     <div style={styles.container}>
-      <h1>🛍 Products</h1>
+      <h1>{t("title")}</h1>
 
       {/* SEARCH + SORT */}
       <div style={styles.topBar}>
@@ -47,7 +50,7 @@ function Home() {
           <FaSearch style={styles.icon} />
           <input
             type="text"
-            placeholder="Search products..."
+            placeholder={t("search")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             style={styles.input}
@@ -59,9 +62,9 @@ function Home() {
           onChange={(e) => setSort(e.target.value)}
           style={styles.select}
         >
-          <option value="default">Sort</option>
-          <option value="low">Low Price</option>
-          <option value="high">High Price</option>
+          <option value="default">{t("default")}</option>
+          <option value="low">{t("low")}</option>
+          <option value="high">{t("high")}</option>
         </select>
       </div>
 
@@ -80,7 +83,7 @@ function Home() {
               cursor: "pointer",
             }}
           >
-            {cat}
+            {cat === "all" ? t("all") : cat}
           </button>
         ))}
       </div>
@@ -101,12 +104,12 @@ function Home() {
                 style={styles.addBtn}
                 onClick={() => dispatch(addToCart(product))}
               >
-                Add to Cart
+                {t("addToCart")}
               </button>
 
               <Link to={`/product/${product.id}`} style={{ flex: 1 }}>
                 <button style={styles.detailsBtn}>
-                  Details
+                  {t("details")}
                 </button>
               </Link>
             </div>
@@ -123,7 +126,6 @@ const styles = {
     fontFamily: "sans-serif",
   },
 
-  /* TOP BAR */
   topBar: {
     display: "flex",
     justifyContent: "space-between",
@@ -160,7 +162,6 @@ const styles = {
     border: "1px solid #ddd",
   },
 
-  /* CATEGORY */
   categoryBox: {
     display: "flex",
     justifyContent: "center",
@@ -169,15 +170,6 @@ const styles = {
     marginBottom: "20px",
   },
 
-  catBtn: {
-    padding: "6px 14px",
-    borderRadius: "20px",
-    border: "none",
-    cursor: "pointer",
-    transition: "0.3s",
-  },
-
-  /* GRID RESPONSIVE */
   grid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
@@ -204,7 +196,7 @@ const styles = {
     overflow: "hidden",
   },
 
-  btnRow: {
+  buttons: {
     display: "flex",
     gap: "10px",
     marginTop: "10px",

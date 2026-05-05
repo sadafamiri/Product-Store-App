@@ -1,75 +1,101 @@
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { LanguageContext } from "../context/LanguageContext";
-import {
-  Box,
-  Typography,
-  Button,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Divider,
-  Stack,
-} from "@mui/material";
-
 
 function SettingsContent() {
   const { state, dispatch } = useContext(ThemeContext);
   const { language, changeLanguage, t } = useContext(LanguageContext);
 
   return (
-    <Box sx={{ width: "100%", p: 2 }}>
+    <div style={styles.container}>
       
       {/* 🌙 Theme */}
-      <Typography variant="h6" mb={2}>
-        {t("theme")}
-      </Typography>
+      <h3 style={styles.title}>{t("theme")}</h3>
 
-      <Button
-        variant="contained"
+      <button
+        style={styles.themeBtn}
         onClick={() => dispatch({ type: "TOGGLE_THEME" })}
-        sx={{ mb: 2 }}
       >
         {state.theme === "light"
-          ? `🌙 ${t("dark")}`
-          : `☀️ ${t("light")}`}
-      </Button>
+          ? `🌙 ${t("darkMode")}`
+          : `☀️ ${t("lightMode")}`}
+      </button>
 
-      <Divider sx={{ my: 2 }} />
+      <hr style={styles.line} />
 
       {/* 🌐 Language */}
-      <Typography variant="h6" mb={2}>
-        {t("language")}
-      </Typography>
+      <h3 style={styles.title}>{t("language")}</h3>
 
-      <FormControl fullWidth>
-        <InputLabel>{t("language")}</InputLabel>
+      <select
+        value={language}
+        onChange={(e) => changeLanguage(e.target.value)}
+        style={styles.select}
+      >
+        <option value="en">{t("english")}</option>
+        <option value="fa">{t("persian")}</option>
+        <option value="ps">{t("pashto")}</option>
+      </select>
 
-        <Select
-          value={language}
-          label={t("language")}
-          onChange={(e) => changeLanguage(e.target.value)}
-        >
-          <MenuItem value="en">{t("english")}</MenuItem>
-          <MenuItem value="fa">{t("persian")}</MenuItem>
-          <MenuItem value="ps">{t("pashto")}</MenuItem>
-        </Select>
-      </FormControl>
-
-      <Divider sx={{ my: 2 }} />
+      <hr style={styles.line} />
 
       {/* 📦 Layout */}
-      <Typography variant="h6" mb={2}>
-        Layout
-      </Typography>
+      <h3 style={styles.title}>{t("layout")}</h3>
 
-      <Stack direction="row" spacing={2}>
-        <Button variant="outlined">Grid</Button>
-        <Button variant="outlined">List</Button>
-      </Stack>
-    </Box>
+      <div style={styles.row}>
+        <button style={styles.outlinedBtn}>Grid</button>
+        <button style={styles.outlinedBtn}>List</button>
+      </div>
+    </div>
   );
 }
 
+const styles = {
+  container: {
+    width: "100%",
+    padding: "15px",
+    fontFamily: "sans-serif",
+  },
+
+  title: {
+    fontSize: "18px",
+    marginBottom: "10px",
+  },
+
+  themeBtn: {
+    padding: "10px 15px",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    background: "#2563eb",
+    color: "#fff",
+    marginBottom: "10px",
+  },
+
+  select: {
+    width: "100%",
+    padding: "10px",
+    borderRadius: "8px",
+    border: "1px solid #ccc",
+  },
+
+  row: {
+    display: "flex",
+    gap: "10px",
+  },
+
+  outlinedBtn: {
+    flex: 1,
+    padding: "10px",
+    border: "1px solid #999",
+    background: "transparent",
+    borderRadius: "8px",
+    cursor: "pointer",
+  },
+
+  line: {
+    margin: "15px 0",
+    border: "none",
+    borderTop: "1px solid #ddd",
+  },
+};
 export default SettingsContent;

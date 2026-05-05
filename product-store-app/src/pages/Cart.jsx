@@ -1,16 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useContext } from "react";
-
-import {
-  Box,
-  Typography,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Stack,
-} from "@mui/material";
-
 import { LanguageContext } from "../context/LanguageContext";
 
 import {
@@ -22,7 +11,6 @@ import {
 
 function Cart() {
   const dispatch = useDispatch();
-
   const { t } = useContext(LanguageContext);
 
   const { items, totalPrice, totalQuantity } = useSelector(
@@ -30,107 +18,177 @@ function Cart() {
   );
 
   return (
-    <Box p={4}>
+    <div style={styles.container}>
       {/* Title */}
-      <Typography variant="h4" mb={2}>
-        {t("cart")}
-      </Typography>
+      <h1 style={styles.title}>{t("cart")}</h1>
 
       {/* Info */}
-      <Typography variant="h6">
-        Total Items: {totalQuantity}
-      </Typography>
+      <p style={styles.info}>
+        {t("totalItems")}: {totalQuantity}
+      </p>
 
-      <Typography variant="h6" mb={2}>
-        Total Price: ${totalPrice.toFixed(2)}
-      </Typography>
+      <p style={styles.info}>
+        {t("totalPrice")}: ${totalPrice.toFixed(2)}
+      </p>
 
-      {/* Clear Cart */}
-      <Button
-        variant="contained"
-        color="error"
+      {/* Clear */}
+      <button
+        style={styles.clearBtn}
         onClick={() => dispatch(clearCart())}
-        sx={{ mb: 4 }}
       >
         {t("clearCart")}
-      </Button>
+      </button>
 
-      {/* Empty Cart */}
+      {/* Empty */}
       {items.length === 0 ? (
-        <Typography variant="h6">
-          Cart is empty
-        </Typography>
+        <p style={styles.empty}>{t("emptyCart")}</p>
       ) : (
-        <Stack spacing={3}>
+        <div style={styles.list}>
           {items.map((item) => (
-            <Card
-              key={item.id}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                p: 2,
-                gap: 2,
-              }}
-            >
-              {/* Image */}
-              <CardMedia
-                component="img"
-                image={item.image}
+            <div key={item.id} style={styles.card}>
+              <img
+                src={item.image}
                 alt={item.title}
-                sx={{
-                  width: 120,
-                  height: 120,
-                  objectFit: "contain",
-                }}
+                style={styles.image}
               />
 
-              {/* Content */}
-              <CardContent sx={{ flex: 1 }}>
-                <Typography variant="h6">
-                  {item.title}
-                </Typography>
+              <div style={styles.content}>
+                <h3 style={styles.productTitle}>{item.title}</h3>
 
-                <Typography variant="body1">
-                  ${item.price}
-                </Typography>
+                <p>
+                  {t("price")}: ${item.price}
+                </p>
 
-                <Typography variant="body2" mb={2}>
-                  Qty: {item.quantity}
-                </Typography>
+                <p>
+                  {t("qty")}: {item.quantity}
+                </p>
 
-                {/* Buttons */}
-                <Stack direction="row" spacing={2}>
-                  <Button
-                    variant="contained"
-                    color="success"
+                <div style={styles.buttons}>
+                  <button
+                    style={styles.plus}
                     onClick={() => dispatch(increaseQty(item.id))}
                   >
                     +
-                  </Button>
+                  </button>
 
-                  <Button
-                    variant="contained"
-                    color="warning"
+                  <button
+                    style={styles.minus}
                     onClick={() => dispatch(decreaseQty(item.id))}
                   >
                     -
-                  </Button>
+                  </button>
 
-                  <Button
-                    variant="contained"
-                    color="error"
+                  <button
+                    style={styles.remove}
                     onClick={() => dispatch(removeFromCart(item.id))}
                   >
-                    Remove
-                  </Button>
-                </Stack>
-              </CardContent>
-            </Card>
+                    {t("remove")}
+                  </button>
+                </div>
+              </div>
+            </div>
           ))}
-        </Stack>
+        </div>
       )}
-    </Box>
+    </div>
   );
 }
+
+/* ================= STYLES (UNCHANGED) ================= */
+
+const styles = {
+  container: {
+    padding: "20px",
+    fontFamily: "sans-serif",
+  },
+
+  title: {
+    fontSize: "28px",
+    marginBottom: "10px",
+  },
+
+  info: {
+    fontSize: "16px",
+    margin: "5px 0",
+  },
+
+  clearBtn: {
+    background: "#dc2626",
+    color: "#fff",
+    border: "none",
+    padding: "10px 15px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    margin: "15px 0",
+  },
+
+  empty: {
+    marginTop: "20px",
+    fontSize: "18px",
+  },
+
+  list: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "15px",
+  },
+
+  card: {
+    display: "flex",
+    gap: "15px",
+    border: "1px solid #ddd",
+    borderRadius: "12px",
+    padding: "12px",
+    alignItems: "center",
+  },
+
+  image: {
+    width: "100px",
+    height: "100px",
+    objectFit: "contain",
+  },
+
+  content: {
+    flex: 1,
+  },
+
+  productTitle: {
+    fontSize: "16px",
+    marginBottom: "5px",
+  },
+
+  buttons: {
+    display: "flex",
+    gap: "10px",
+    marginTop: "10px",
+  },
+
+  plus: {
+    background: "#16a34a",
+    color: "#fff",
+    border: "none",
+    padding: "6px 10px",
+    borderRadius: "6px",
+    cursor: "pointer",
+  },
+
+  minus: {
+    background: "#f59e0b",
+    color: "#fff",
+    border: "none",
+    padding: "6px 10px",
+    borderRadius: "6px",
+    cursor: "pointer",
+  },
+
+  remove: {
+    background: "#ef4444",
+    color: "#fff",
+    border: "none",
+    padding: "6px 10px",
+    borderRadius: "6px",
+    cursor: "pointer",
+  },
+};
 
 export default Cart;
