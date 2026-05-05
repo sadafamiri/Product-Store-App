@@ -1,87 +1,179 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-
-
-function ProductDetails() {
-  const { id } = useParams();
-
+import { getProductById } from "../api/productsAPI";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cart/cartSlice";
 
 function ProductDetails() {
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["product", id],
     queryFn: () => getProductById(id),
   });
 
-
-  if (isLoading) return <h2>Loading...</h2>;
-  if (error) return <h2>Error loading product</h2>;
+  if (isLoading) return <h2 style={{ padding: 20 }}>Loading...</h2>;
+  if (error) return <h2 style={{ padding: 20 }}>Error loading product</h2>;
 
   return (
-  <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-6">
-    <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl p-8">
-
-      <div className="grid md:grid-cols-2 gap-10 items-center">
-
-        {/* تصویر */}
-        <div className="flex justify-center bg-gray-50 p-6 rounded-2xl">
-          <img
-            src={data.image}
-            alt={data.title}
-            className="h-80 object-contain hover:scale-105 transition duration-300"
-          />
+    <div style={styles.page}>
+      <div style={styles.card}>
+        {/* IMAGE */}
+        <div style={styles.imageBox}>
+          <img src={data.image} alt={data.title} style={styles.image} />
         </div>
 
-        {/* اطلاعات */}
-        <div>
-          <h1 className="text-3xl font-extrabold text-gray-800 mb-4 leading-snug">
-            {data.title}
-          </h1>
+        {/* CONTENT */}
+        <div style={styles.content}>
+          <h1 style={styles.title}>{data.title}</h1>
 
-          <p className="text-gray-500 text-sm mb-6">
-            Category: {data.category}
-          </p>
+          <p style={styles.category}>Category: {data.category}</p>
 
-          <p className="text-gray-600 leading-relaxed mb-6">
-            {data.description}
-          </p>
+          <p style={styles.desc}>{data.description}</p>
 
-          <div className="flex items-center justify-between mb-8">
-            <span className="text-3xl font-bold text-green-600">
-              ${data.price}
-            </span>
+          <div style={styles.priceRow}>
+            <span style={styles.price}>${data.price}</span>
 
-            <span className="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-sm">
+            <span style={styles.rating}>
               ⭐ {data.rating?.rate || 4.5}
             </span>
           </div>
 
-          {/* دکمه‌ها */}
-          <div className="flex gap-4">
+          {/* BUTTONS */}
+          <div style={styles.buttons}>
             <button
+              style={styles.addBtn}
               onClick={() => dispatch(addToCart(data))}
-              className="flex-1 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition shadow-md"
             >
               Add to Cart
             </button>
 
             <button
+              style={styles.backBtn}
               onClick={() => window.history.back()}
-              className="px-5 py-3 border rounded-xl hover:bg-gray-100 transition"
             >
               Back
             </button>
           </div>
         </div>
-
       </div>
     </div>
-  </div>
-);
-  
+  );
 }
-}
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "20px",
+    background: "#f5f7fb",
+  },
+
+  card: {
+    display: "flex",
+    gap: "20px",
+    maxWidth: "900px",
+    width: "100%",
+    background: "#fff",
+    borderRadius: "15px",
+    padding: "20px",
+    boxShadow: "0 5px 20px rgba(0,0,0,0.1)",
+  },
+
+  imageBox: {
+    flex: "0 0 220px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#f9f9f9",
+    borderRadius: "12px",
+    padding: "10px",
+  },
+
+  image: {
+    width: "160px",
+    height: "160px",
+    objectFit: "contain",
+  },
+
+  content: {
+    flex: 1,
+  },
+
+  title: {
+    fontSize: "20px",
+    marginBottom: "10px",
+  },
+
+  category: {
+    fontSize: "13px",
+    color: "#666",
+    marginBottom: "10px",
+  },
+
+  desc: {
+    fontSize: "14px",
+    color: "#444",
+    lineHeight: "1.5",
+    marginBottom: "15px",
+  },
+
+  priceRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "20px",
+  },
+
+  price: {
+    fontSize: "22px",
+    fontWeight: "bold",
+    color: "#16a34a",
+  },
+
+  rating: {
+    background: "#fff7cc",
+    padding: "5px 10px",
+    borderRadius: "20px",
+    fontSize: "13px",
+  },
+
+  buttons: {
+    display: "flex",
+    gap: "10px",
+  },
+
+  addBtn: {
+    flex: 1,
+    padding: "10px",
+    border: "none",
+    borderRadius: "8px",
+    background: "#16a34a",
+    color: "#fff",
+    cursor: "pointer",
+  },
+
+  backBtn: {
+    padding: "10px 15px",
+    border: "1px solid #ccc",
+    borderRadius: "8px",
+    background: "#fff",
+    cursor: "pointer",
+  },
+
+  // 📱 responsive
+  "@media (max-width: 768px)": {
+    card: {
+      flexDirection: "column",
+      alignItems: "center",
+    },
+    imageBox: {
+      width: "100%",
+    },
+  },
+};
 
 export default ProductDetails;
-

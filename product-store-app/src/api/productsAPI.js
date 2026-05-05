@@ -1,4 +1,4 @@
-
+// گرفتن همه محصولات
 export async function getProducts() {
   const res = await fetch("https://fakestoreapi.com/products");
 
@@ -9,6 +9,13 @@ export async function getProducts() {
   return res.json();
 }
 
+// گرفتن یک محصول با ID
+export async function getProductById(id) {
+  const res = await fetch(`https://fakestoreapi.com/products/${id}`);
 
+  if (!res.ok) {
+    throw new Error("Failed to fetch product");
+  }
 
- 
+  return res.json();
+}
