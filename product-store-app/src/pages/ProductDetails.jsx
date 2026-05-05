@@ -164,7 +164,6 @@ const styles = {
     cursor: "pointer",
   },
 
-  // 📱 responsive
   "@media (max-width: 768px)": {
     card: {
       flexDirection: "column",

@@ -14,7 +14,7 @@ function Cart() {
   const { t } = useContext(LanguageContext);
 
   const { items, totalPrice, totalQuantity } = useSelector(
-    (state) => state.cart
+    (state) => state.cart,
   );
 
   return (
@@ -22,7 +22,6 @@ function Cart() {
       {/* Title */}
       <h1 style={styles.title}>{t("cart")}</h1>
 
-      {/* Info */}
       <p style={styles.info}>
         {t("totalItems")}: {totalQuantity}
       </p>
@@ -32,25 +31,17 @@ function Cart() {
       </p>
 
       {/* Clear */}
-      <button
-        style={styles.clearBtn}
-        onClick={() => dispatch(clearCart())}
-      >
+      <button style={styles.clearBtn} onClick={() => dispatch(clearCart())}>
         {t("clearCart")}
       </button>
 
-      {/* Empty */}
       {items.length === 0 ? (
         <p style={styles.empty}>{t("emptyCart")}</p>
       ) : (
         <div style={styles.list}>
           {items.map((item) => (
             <div key={item.id} style={styles.card}>
-              <img
-                src={item.image}
-                alt={item.title}
-                style={styles.image}
-              />
+              <img src={item.image} alt={item.title} style={styles.image} />
 
               <div style={styles.content}>
                 <h3 style={styles.productTitle}>{item.title}</h3>
@@ -93,8 +84,6 @@ function Cart() {
     </div>
   );
 }
-
-/* ================= STYLES (UNCHANGED) ================= */
 
 const styles = {
   container: {

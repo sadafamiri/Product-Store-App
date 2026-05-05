@@ -1,5 +1,4 @@
-
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -13,7 +12,6 @@ function App() {
   const { state } = useContext(ThemeContext);
   return (
     <>
-    
       <Navbar openSettings={() => setIsSettingsOpen(true)} />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -23,15 +21,13 @@ function App() {
       {/* Settings Sidebar */}
       {isSettingsOpen && (
         <>
-          {/* Overlay */}
           <div
             onClick={() => setIsSettingsOpen(false)}
             style={styles.overlay}
           />
 
           {/* Sidebar */}
-          <div style={styles.sidebar}
-          >
+          <div style={styles.sidebar}>
             <h2>⚙ Settings</h2>
 
             <button onClick={() => setIsSettingsOpen(false)}>Close ❌</button>
@@ -70,6 +66,4 @@ const styles = {
   },
 };
 
-
 export default App;
-

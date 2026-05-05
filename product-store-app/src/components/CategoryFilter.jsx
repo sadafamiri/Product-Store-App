@@ -46,7 +46,6 @@ function CategoryFilter({ selectedCategory, setSelectedCategory }) {
   );
 }
 
-/* styles (بدون تغییر) */
 const styles = {
   wrapper: {
     display: "flex",

@@ -32,8 +32,6 @@ function Navbar({ openSettings }) {
   );
 }
 
-/* ================= STYLES (UNCHANGED) ================= */
-
 const styles = {
   nav: {
     display: "flex",

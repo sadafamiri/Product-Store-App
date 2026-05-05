@@ -8,8 +8,7 @@ function SettingsContent() {
 
   return (
     <div style={styles.container}>
-      
-      {/* 🌙 Theme */}
+      {/*  Theme */}
       <h3 style={styles.title}>{t("theme")}</h3>
 
       <button
@@ -23,7 +22,7 @@ function SettingsContent() {
 
       <hr style={styles.line} />
 
-      {/* 🌐 Language */}
+      {/*  Language */}
       <h3 style={styles.title}>{t("language")}</h3>
 
       <select
@@ -38,7 +37,7 @@ function SettingsContent() {
 
       <hr style={styles.line} />
 
-      {/* 📦 Layout */}
+      {/*  Layout */}
       <h3 style={styles.title}>{t("layout")}</h3>
 
       <div style={styles.row}>
