@@ -36,8 +36,19 @@ function SettingsContent() {
       <h3 style={styles.title}>{t("layout")}</h3>
 
       <div style={styles.row}>
-        <button style={styles.outlinedBtn}>Grid</button>
-        <button style={styles.outlinedBtn}>List</button>
+        <button
+          style={styles.outlinedBtn}
+          onClick={() => dispatch({ type: "SET_LAYOUT", payload: "grid" })}
+        >
+          Grid
+        </button>
+
+        <button
+          style={styles.outlinedBtn}
+          onClick={() => dispatch({ type: "SET_LAYOUT", payload: "list" })}
+        >
+          List
+        </button>
       </div>
     </div>
   );

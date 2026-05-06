@@ -13,11 +13,16 @@ function reducer(state, action) {
     case "TOGGLE_THEME":
       return { ...state, darkMode: !state.darkMode };
 
+    // ❌ این را می‌توانی حذف کنی یا نگه داری
     case "TOGGLE_LAYOUT":
       return {
         ...state,
         layout: state.layout === "grid" ? "list" : "grid",
       };
+
+    // ✅ مهم‌ترین
+    case "SET_LAYOUT":
+      return { ...state, layout: action.payload };
 
     case "SET_LANGUAGE":
       return { ...state, language: action.payload };

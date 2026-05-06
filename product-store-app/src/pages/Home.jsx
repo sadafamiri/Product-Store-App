@@ -3,11 +3,10 @@ import { FaSearch } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
-import { LanguageContext } from "../context/LanguageContext";
-
 import { getProducts } from "../api/productsAPI";
 import { addToCart } from "../features/cart/cartSlice";
+import { LanguageContext } from "../context/LanguageContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Home() {
   const [search, setSearch] = useState("");
@@ -16,6 +15,7 @@ function Home() {
 
   const dispatch = useDispatch();
   const { t } = useContext(LanguageContext);
+  const { state } = useContext(ThemeContext);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
@@ -29,9 +29,7 @@ function Home() {
 
   let filtered = data
     ?.filter((p) => (category === "all" ? true : p.category === category))
-    .filter((p) =>
-      p.title.toLowerCase().includes(search.toLowerCase())
-    );
+    .filter((p) => p.title.toLowerCase().includes(search.toLowerCase()));
 
   if (sort === "low") {
     filtered = [...filtered].sort((a, b) => a.price - b.price);
@@ -114,9 +112,7 @@ function Home() {
               </button>
 
               <Link to={`/product/${product.id}`} style={{ flex: 1 }}>
-                <button style={styles.detailsBtn}>
-                  {t("details")}
-                </button>
+                <button style={styles.detailsBtn}>{t("details")}</button>
               </Link>
             </div>
           </div>

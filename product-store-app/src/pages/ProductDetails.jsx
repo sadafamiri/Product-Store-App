@@ -35,9 +35,7 @@ function ProductDetails() {
           <div style={styles.priceRow}>
             <span style={styles.price}>${data.price}</span>
 
-            <span style={styles.rating}>
-              ⭐ {data.rating?.rate || 4.5}
-            </span>
+            <span style={styles.rating}>⭐ {data.rating?.rate || 4.5}</span>
           </div>
 
           {/* BUTTONS */}
